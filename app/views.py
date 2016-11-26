@@ -42,9 +42,10 @@ class RootView(View):
 class AccountsProfileView(LoginRequiredView, DetailView):
     def get(self, request, *args, **kwargs):
         accounts = Account.objects.filter(user=request.user)
-        client.access_token = request.session.get('oauth.access_token')
-        data = client.api('/app/profile/')
-        print(data)
+        access_token = request.session.get('oauth.access_token')
+        if access_token:
+            data = client.api('/app/profile/')
+            print(data)
 
         return render(request, 'accounts/profile.html', {
             'accounts': accounts
