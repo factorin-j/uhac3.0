@@ -65,8 +65,6 @@ class Client(object):
         data = data or {}
         headers = {'authorization': 'Bearer ' + str(self.access_token)}
         response = post(OAUTH_SERVER_URL + uri, data=data, headers=headers)
-        if response.content is None or type(response.content) != 'str':
-            return None
-        return loads(response.content)
+        return loads(response.content.decode('utf8'))
 
 client = Client()
