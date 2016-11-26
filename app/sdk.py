@@ -53,7 +53,7 @@ class Client(object):
         }
 
         response = post(token_url, data=data, headers=headers)
-        json = loads(response.content.decode('utf8'))
+        json = response.json()
         self.access_token = json['access_token']
 
     def get_basic_auth_header(self):
@@ -68,7 +68,7 @@ class Client(object):
             'content-type': 'application/x-www-form-urlencoded'
         }
         response = post(OAUTH_SERVER_URL + uri, data=data, headers=headers)
-        print(response.content)
-        return loads(response.content.decode('utf8'))
+        print(response.json())
+        return loads(response.json())
 
 client = Client()
