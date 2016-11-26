@@ -139,3 +139,9 @@ class StreamItem(object):
     @property
     def publishers(self):
         return self._publishers
+
+try:
+    from local_settings import rpcuser, rpcpassword, rpchost, rpcport, chainname
+    api = MultiChainClient(rpcuser, rpcpassword, rpchost, rpcport, chainname)
+except ImportError:
+    raise ImportError('Failed to import local settings.')

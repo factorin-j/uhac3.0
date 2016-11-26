@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block contents %}
+    <h1>My Accounts</h1>
+    {% if accounts %}
+        {% for account in accounts %}
+            This is my Account <br/>
+        {% endfor %}
+    {% else %}
+        No accounts found.
+    {% endif %}
+{% endblock %}

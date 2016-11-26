@@ -3,9 +3,9 @@ from urllib.parse import urlencode
 from werkzeug.security import gen_salt
 from requests import post
 from base64 import b64encode
-from uhac.local_settings import APP_CLIENT_ID
-from uhac.local_settings import APP_CLIENT_SECRET
-from uhac.local_settings import APP_CLIENT_REDIRECT_URL
+from uhac.settings import APP_CLIENT_ID
+from uhac.settings import APP_CLIENT_SECRET
+from uhac.settings import APP_CLIENT_REDIRECT_URL
 
 
 OAUTH_SERVER_URL = 'https://bukas.org'
