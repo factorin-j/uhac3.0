@@ -6,7 +6,7 @@ from base64 import b64encode
 from uhac.settings import APP_CLIENT_ID
 from uhac.settings import APP_CLIENT_SECRET
 from uhac.settings import APP_CLIENT_REDIRECT_URL
-from json import loads
+from json import loads, dumps
 
 
 OAUTH_SERVER_URL = 'https://bukas.org'
@@ -54,6 +54,7 @@ class Client(object):
 
         response = post(token_url, data=data, headers=headers)
         json = loads(response.content.decode('utf8'))
+        print(json)
         self.access_token = json.access_token
 
     def get_basic_auth_header(self):
