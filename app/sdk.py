@@ -67,6 +67,8 @@ class Client(object):
             'authorization': 'Bearer ' + str(self.access_token),
             'content-type': 'application/x-www-form-urlencoded'
         }
+
+        print('AccessToken:' + self.access_token)
         response = post(OAUTH_SERVER_URL + uri, data=data, headers=headers)
         print(response.json())
         return loads(response.json())
