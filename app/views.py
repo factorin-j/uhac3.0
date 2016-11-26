@@ -1,13 +1,12 @@
 from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView, DetailView
+from .forms import RegistrationForm, AccountCreateForm
 from django.utils.decorators import method_decorator
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import redirect, render
-from django.http import HttpResponse
-from .forms import RegistrationForm
-from .models import UserStream
+from .models import UserStream, Account
 from django.views import View
-from .sdk import Client
+from .sdk import client
 
 
 class LoginRequiredView(View):
@@ -20,7 +19,7 @@ class LoginRequiredView(View):
 # noinspection PyMethodMayBeStatic
 class ConnectView(LoginRequiredView):
     def get(self, request):
-        return redirect(Client.get_client().create_auth_url())
+        return redirect(client.create_auth_url())
 
 
 # noinspection PyMethodMayBeStatic
@@ -29,8 +28,8 @@ class VerifyView(LoginRequiredView):
         code = request.GET.get('code')
         user_stream = UserStream.objects.get(user=request.user)
         user_stream_id = user_stream.stream_id if user_stream else None
-        response = Client.get_client().authorize(code, user_stream_id)
-        return HttpResponse(response.content)
+        client.authorize(code, user_stream_id)
+        return redirect('account_profile')
 
 
 class RootView(View):
@@ -41,7 +40,10 @@ class RootView(View):
 # noinspection PyMethodMayBeStatic
 class AccountsProfileView(LoginRequiredView, DetailView):
     def get(self, request, *args, **kwargs):
-        return render(request, 'accounts/profile.html')
+        accounts = Account.objects.filter(user=request.user)
+        return render(request, 'accounts/profile.html', {
+            'accounts': accounts
+        })
 
     def get_context_data(self, **kwargs):
         context = super(AccountsProfileView, self).get_context_data(**kwargs)
@@ -55,4 +57,7 @@ class RegistrationView(CreateView):
     template_name = 'registration/register.html'
 
 
-# class AccountsCreateView(LoginRequiredView):
+class AccountsCreateView(CreateView):
+    form_class = AccountCreateForm
+    success_url = reverse_lazy('account_profile')
+    template_name = 'accounts/create.html'

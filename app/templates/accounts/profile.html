@@ -3,10 +3,22 @@
 {% block contents %}
     <h1>My Accounts</h1>
     {% if accounts %}
-        {% for account in accounts %}
-            This is my Account <br/>
-        {% endfor %}
+        <table class="table table-bordered">
+            <tr>
+                <th>Account Name</th>
+                <th>Account Number</th>
+            </tr>
+            <tr>
+                {% for account in accounts %}
+                    <td>{{ account.account_name }}</td>
+                    <td>{{ account.account_number }}</td>
+                {% endfor %}
+            </tr>
+        </table>
     {% else %}
         No accounts found.
     {% endif %}
+
+    <!--suppress HtmlUnknownTarget -->
+    <a href="/accounts/create/">Create new account</a>
 {% endblock %}

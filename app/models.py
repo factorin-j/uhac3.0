@@ -4,6 +4,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from .multichain import api
 from hashlib import md5
+from json import dumps
 
 
 class Account(models.Model):
@@ -30,3 +31,9 @@ def create_user_stream(sender, instance, created, **kwargs):
         user_stream.save()
 
 
+@receiver(post_save, sender=Account)
+def publish_account_stream(sender, instance, created, **kwargs):
+    if created:
+        stream_id = instance.user.userstream.stream_id
+        data = instance.account_name + '|' + instance.account_number
+        api.publish('account', stream_id, data.encode('utf-8').hex())
