@@ -61,7 +61,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            'apps/app/templates/'
+            'app/templates/'
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -137,11 +137,11 @@ LOGIN_REDIRECT_URL = reverse_lazy('account_profile')
 
 APP_CLIENT_ID = 'MbtO4UmtSnCSs4EPQk2we45UYO5WV0paFgL19IoV'
 APP_CLIENT_SECRET = '0XmR3hvjf7Nm3IanW7F2yiRNeAsK1tmBQAdwKM1sq2sBQF3ZkPZMDp4vQzrzWH4ZuRvLzBvE0Srb8qsJPx8iiebJttxAfX6gzIdivM8AkEg63DhPUey8z23HkCzT9NOu'
-APP_CLIENT_REDIRECT_URL = 'https://f475a891.ap.ngrok.io/api/verify/'
+APP_CLIENT_REDIRECT_URL = 'https://uhac.marlosoft.net/api/verify/'
 
 
 rpcuser = 'admin'
 rpcpassword = 'pakyu'
-rpchost = '54.238.198.4'
+rpchost = '127.0.0.1'
 rpcport = '8000'
-chainname = 'kasaysayan1'
+chainname = 'kasaysayan0'
