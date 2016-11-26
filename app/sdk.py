@@ -63,7 +63,10 @@ class Client(object):
 
     def api(self, uri, data=None):
         data = data or {}
-        headers = {'authorization': 'Bearer ' + str(self.access_token)}
+        headers = {
+            'authorization': 'Bearer ' + str(self.access_token),
+            'content-type': 'application/x-www-form-urlencoded'
+        }
         response = post(OAUTH_SERVER_URL + uri, data=data, headers=headers)
         print(response.content)
         return loads(response.content.decode('utf8'))
