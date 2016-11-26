@@ -22,7 +22,7 @@ def create_user_stream(sender, instance, created, **kwargs):
     if created:
         address = api.getnewaddress()
         stream_id = md5(address.encode('utf-8')).hexdigest()
-        transaction_id = api.create('stream', stream_id, 'false')
+        transaction_id = api.create('stream', stream_id, False)
         if not len(transaction_id) == 64:
             print('invalid transaction id (' + transaction_id + ')')
 
