@@ -52,11 +52,9 @@ class Client(object):
             'user_stream_id': str(stream_id)
         }
 
-        post(token_url, data=data, headers=headers)
-
-        # TODO: implement get data from API server
-        # json = loads(response.content)
-        # self.access_token = json.access_token
+        response = post(token_url, data=data, headers=headers)
+        json = loads(str(response.content))
+        self.access_token = json.access_token
 
     def get_basic_auth_header(self):
         user_pass = '{0}:{1}'.format(self.client_id, self.client_secret)

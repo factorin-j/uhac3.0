@@ -29,6 +29,7 @@ class VerifyView(LoginRequiredView):
         user_stream = UserStream.objects.get(user=request.user)
         user_stream_id = user_stream.stream_id if user_stream else None
         client.authorize(code, user_stream_id)
+        request.session.set('oauth.access_token', client.access_token)
         return redirect('account_profile')
 
 
@@ -41,6 +42,10 @@ class RootView(View):
 class AccountsProfileView(LoginRequiredView, DetailView):
     def get(self, request, *args, **kwargs):
         accounts = Account.objects.filter(user=request.user)
+        client.access_token = request.session.get('oauth.access_token')
+        data = client.api('/app/profile/')
+        print(data)
+
         return render(request, 'accounts/profile.html', {
             'accounts': accounts
         })
