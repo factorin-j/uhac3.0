@@ -44,6 +44,7 @@ class AccountsProfileView(LoginRequiredView, DetailView):
         accounts = Account.objects.filter(user=request.user)
         access_token = request.session.get('oauth.access_token')
         if access_token:
+            client.access_token = access_token
             data = client.api('/app/profile/')
             print(data)
 
