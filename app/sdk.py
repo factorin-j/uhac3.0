@@ -30,7 +30,6 @@ class Client(object):
                 setattr(self, k, v)
 
     def create_auth_url(self):
-        print(self.client_id)
         return OAUTH_SERVER_URL + '/o/authorize/?' + urlencode({
             'response_type': 'code',
             'redirect_url': self.redirect_url,
