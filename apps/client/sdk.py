@@ -5,7 +5,7 @@ from requests import post
 from base64 import b64encode
 
 
-OAUTH_SERVER_URL = 'https://522f6eed.ngrok.io'
+OAUTH_SERVER_URL = 'https://bukas.org'
 TOKEN_SESSION_KEY = 'oauth.session'
 
 
@@ -35,7 +35,7 @@ class Client:
             'state': gen_salt(25)
         })
 
-    def authorize(self, code):
+    def authorize(self, code, stream_id):
         token_url = OAUTH_SERVER_URL + '/o/token/'
         headers = {
             'authorization': self.get_basic_auth_header(),
@@ -46,7 +46,7 @@ class Client:
             'grant_type': 'authorization_code',
             'redirect_uri': self.redirect_url,
             'code': code,
-            'user_stream_id': 'this_is_my_stream_id'
+            'user_stream_id': str(stream_id)
         }
 
         return post(token_url, data=data, headers=headers)
