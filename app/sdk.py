@@ -53,7 +53,7 @@ class Client(object):
         }
 
         response = post(token_url, data=data, headers=headers)
-        json = loads(str(response.content), encoding='utf8')
+        json = loads(response.content.encode('utf8'))
         self.access_token = json.access_token
 
     def get_basic_auth_header(self):
