@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
-
 from django.core.urlresolvers import reverse_lazy
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -28,7 +27,9 @@ SECRET_KEY = 'w-+hdc1hq38r-3n^+*zhfzdmjw4c049xnqf=9x5471+3u(h8(3'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'localhost'
+    'localhost',
+    'f475a891.ap.ngrok.io',
+    'uhac.marlosoft.net'
 ]
 
 
@@ -83,7 +84,7 @@ WSGI_APPLICATION = 'uhac.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'uhac-client/db.sqlite3'),
     }
 }
 
@@ -125,8 +126,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'staticfiles'),)
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'uhac-client/staticfiles'),)
+STATIC_ROOT = os.path.join(BASE_DIR, 'uhac-client/static')
 
 
 CORS_ORIGIN_ALLOW_ALL = True
@@ -134,11 +135,13 @@ CORS_ORIGIN_ALLOW_ALL = True
 LOGIN_URL = reverse_lazy('login')
 LOGIN_REDIRECT_URL = reverse_lazy('account_profile')
 
-APP_CLIENT_ID = ''
-APP_CLIENT_SECRET = ''
-APP_CLIENT_REDIRECT_URL = ''
+APP_CLIENT_ID = 'MbtO4UmtSnCSs4EPQk2we45UYO5WV0paFgL19IoV'
+APP_CLIENT_SECRET = '0XmR3hvjf7Nm3IanW7F2yiRNeAsK1tmBQAdwKM1sq2sBQF3ZkPZMDp4vQzrzWH4ZuRvLzBvE0Srb8qsJPx8iiebJttxAfX6gzIdivM8AkEg63DhPUey8z23HkCzT9NOu'
+APP_CLIENT_REDIRECT_URL = 'https://f475a891.ap.ngrok.io/api/verify/'
 
-try:
-    from local_settings import *
-except ImportError:
-    pass
+
+rpcuser = 'admin'
+rpcpassword = 'pakyu'
+rpchost = '54.238.198.4'
+rpcport = '8000'
+chainname = 'kasaysayan1'

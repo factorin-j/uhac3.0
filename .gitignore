@@ -1,5 +1,6 @@
 .idea/
 db.sqlite3
 *__pycache__*
-uhac/local_settings.py
+local_settings.py
 static/*
+chainclient.log
