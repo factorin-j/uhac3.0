@@ -1,6 +1,7 @@
 from django.conf.urls import url, include
 from django.contrib import admin
-from apps.client import views
+
+from app import views
 
 urlpatterns = [
     url('api/connect/', views.ConnectView.as_view(), name='api.login'),
