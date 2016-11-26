@@ -26,11 +26,7 @@ SECRET_KEY = 'w-+hdc1hq38r-3n^+*zhfzdmjw4c049xnqf=9x5471+3u(h8(3'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    'localhost',
-    '192.168.0.152',
-    'f475a891.ap.ngrok.io'
-]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -42,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'apps.client'
 ]
 
 MIDDLEWARE = [
@@ -60,9 +55,7 @@ ROOT_URLCONF = 'uhac.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            'apps/client/templates/'
-        ],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -127,7 +120,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-
-CORS_ORIGIN_ALLOW_ALL = True
-
-LOGIN_URL = reverse_lazy('login')
+try:
+    from .local_settings import *
+except ImportError:
+    raise ImportError('Failed to import local settings')
