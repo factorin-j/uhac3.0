@@ -43,6 +43,7 @@ class AccountsProfileView(LoginRequiredView, DetailView):
     def get(self, request, *args, **kwargs):
         accounts = Account.objects.filter(user=request.user)
         client.access_token = request.session.get('oauth.access_token')
+        print(client.access_token)
         data = client.api('/app/profile/')
         print(data)
 
