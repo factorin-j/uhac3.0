@@ -29,7 +29,7 @@ class VerifyView(LoginRequiredView):
         user_stream = UserStream.objects.get(user=request.user)
         user_stream_id = user_stream.stream_id if user_stream else None
         client.authorize(code, user_stream_id)
-        request.session.set('oauth.access_token', client.access_token)
+        request.session['oauth.access_token'] = client.access_token
         return redirect('account_profile')
 
 
