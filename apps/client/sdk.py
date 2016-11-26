@@ -3,10 +3,12 @@ from urllib.parse import urlencode
 from werkzeug.security import gen_salt
 from requests import post
 from base64 import b64encode
+from uhac.local_settings import APP_CLIENT_ID
+from uhac.local_settings import APP_CLIENT_SECRET
+from uhac.local_settings import APP_CLIENT_REDIRECT_URL
 
 
 OAUTH_SERVER_URL = 'https://bukas.org'
-TOKEN_SESSION_KEY = 'oauth.session'
 
 
 # noinspection PyMethodMayBeStatic
@@ -19,9 +21,9 @@ class Client:
     @staticmethod
     def get_client():
         client = Client()
-        client.client_id = 'jG5XkWMVfdMB1S8KU7WmaOtTMAAczuxmNqK7coU1'
-        client.client_secret = 'k46lwU5gHnnTcWim0o85tgY9RUjTDzKcfSUZLlPeNAzyMWc4f8sHYIHLzXLp5B8DWkfWzzK0TeF0WwReYCLM2ydZRRNZUP1ix9Id8OfpdO0AYmkSEVIUavG0uLtkDdEd'
-        client.redirect_url = 'https://f475a891.ap.ngrok.io/api/verify/'
+        client.client_id = APP_CLIENT_ID
+        client.client_secret = APP_CLIENT_SECRET
+        client.redirect_url = APP_CLIENT_REDIRECT_URL
         client.scopes = ['read', 'write']
         return client
 

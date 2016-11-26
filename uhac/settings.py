@@ -26,7 +26,9 @@ SECRET_KEY = 'w-+hdc1hq38r-3n^+*zhfzdmjw4c049xnqf=9x5471+3u(h8(3'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost'
+]
 
 
 # Application definition
@@ -38,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'apps.client'
 ]
 
 MIDDLEWARE = [
@@ -55,7 +58,9 @@ ROOT_URLCONF = 'uhac.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            'apps/client/templates/'
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -119,8 +124,20 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'staticfiles'),)
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+LOGIN_URL = reverse_lazy('login')
+LOGIN_REDIRECT_URL = reverse_lazy('account_profile')
+
+APP_CLIENT_ID = ''
+APP_CLIENT_SECRET = ''
+APP_CLIENT_REDIRECT_URL = ''
 
 try:
     from .local_settings import *
 except ImportError:
-    raise ImportError('Failed to import local settings')
+    pass
