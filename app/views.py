@@ -41,17 +41,15 @@ class IndexView(View):
 class CriminalRecordView(LoginRequiredView, DetailView):
     def get(self, request, *args, **kwargs):
         if not request.user.is_staff:
-            return render(request, 'records/profile.html')
+            records = CriminalRecord.objects.filter(user=request.user)
+            return render(request, 'records/profile.html', {
+                'records': records
+            })
 
-        records = CriminalRecord.objects.filter(user=request.user)
+        records = CriminalRecord.objects.all()
         return render(request, 'records/list.html', {
             'records': records
         })
-
-    def get_context_data(self, **kwargs):
-        context = super(CriminalRecordView, self).get_context_data(**kwargs)
-        context['records'] = CriminalRecord.objects.all()
-        return context
 
 
 class CriminalRecordCreateView(CreateView):
