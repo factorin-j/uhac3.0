@@ -29,7 +29,7 @@ class VerifyView(LoginRequiredView):
         user_stream = UserStream.objects.get(user=request.user)
         user_stream_id = user_stream.stream_id if user_stream else None
         client.authorize(code, user_stream_id)
-        return redirect('account_profile')
+        return redirect('records.list')
 
 
 class IndexView(View):
