@@ -41,15 +41,16 @@ class RootView(View):
 # noinspection PyMethodMayBeStatic
 class AccountsProfileView(LoginRequiredView, DetailView):
     def get(self, request, *args, **kwargs):
+        scopes = []
         accounts = Account.objects.filter(user=request.user)
-        # access_token = request.session.get('oauth.access_token')
-        # if access_token:
-        #     client.access_token = access_token
-        #     data = client.api('/app/profile/')
-        #     print(data)
+        access_token = request.session.get('oauth.access_token')
+        if access_token:
+            client.access_token = access_token
+            scopes = client.api('/api/')
 
         return render(request, 'accounts/profile.html', {
-            'accounts': accounts
+            'accounts': accounts,
+            'scopes': scopes
         })
 
     def get_context_data(self, **kwargs):
