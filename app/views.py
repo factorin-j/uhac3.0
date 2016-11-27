@@ -32,8 +32,9 @@ class VerifyView(LoginRequiredView):
         return redirect('account_profile')
 
 
-class IndexView(TemplateView):
-    template_name = 'index.html'
+class IndexView(View):
+    def dispatch(self, request, *args, **kwargs):
+        return redirect('login')
 
 
 # noinspection PyMethodMayBeStatic
