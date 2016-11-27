@@ -1,18 +1,11 @@
 # from django.forms import ModelForm
-from django.contrib.auth.forms import UserCreationForm
 from django.forms.models import ModelForm
 from django.forms import HiddenInput
-from .models import User, Account
+from .models import CriminalRecord
 
 
-class RegistrationForm(UserCreationForm):
+class CriminalRecordForm(ModelForm):
     class Meta:
-        model = User
-        fields = ['username', 'email']
-
-
-class AccountCreateForm(ModelForm):
-    class Meta:
-        model = Account
-        fields = ['user', 'account_name', 'account_number']
+        model = CriminalRecord
+        fields = ['offense', 'case_number', 'case_status', 'committed_at']
         widgets = {'user': HiddenInput()}

@@ -4,13 +4,14 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from .multichain import api
 from hashlib import md5
-from json import dumps
 
 
-class Account(models.Model):
-    user = models.ForeignKey(User, related_name='account')
-    account_name = models.CharField(max_length=255)
-    account_number = models.CharField(max_length=255)
+class CriminalRecord(models.Model):
+    user = models.ForeignKey(User, related_name='records')
+    offense = models.TextField()
+    case_number = models.IntegerField(unique=True)
+    case_status = models.CharField(max_length=255)
+    committed_at = models.DateTimeField()
 
 
 class UserStream(models.Model):
@@ -31,9 +32,14 @@ def create_user_stream(sender, instance, created, **kwargs):
         user_stream.save()
 
 
-@receiver(post_save, sender=Account)
-def publish_account_stream(sender, instance, created, **kwargs):
+@receiver(post_save, sender=CriminalRecord)
+def publish_criminal_record_stream(sender, instance, created, **kwargs):
     if created:
         stream_id = instance.user.userstream.stream_id
-        data = instance.account_name + '|' + instance.account_number
+        data = str('|').join([
+            instance.offense,
+            instance.case_number,
+            instance.case_status,
+            instance.committed_at,
+        ])
         api.publish('account', stream_id, data.encode('utf-8').hex())
