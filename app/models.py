@@ -4,6 +4,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from .multichain import api
 from hashlib import md5
+from datetime import datetime
 
 
 class CriminalRecord(models.Model):
@@ -36,10 +37,11 @@ def create_user_stream(sender, instance, created, **kwargs):
 def publish_criminal_record_stream(sender, instance, created, **kwargs):
     if created:
         stream_id = instance.user.userstream.stream_id
+        committed_at = str('%Y-%m-d %H:%M').format(instance.committed_at)
         data = str('|').join([
             instance.offense,
             instance.case_number,
             instance.case_status,
-            str(instance.committed_at),
+            committed_at,
         ])
         api.publish(stream_id, 'records', data.encode('utf-8').hex())
