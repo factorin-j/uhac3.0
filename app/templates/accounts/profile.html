@@ -1,24 +1,33 @@
 {% extends "base.html" %}
 
 {% block contents %}
-    <h1>My Accounts</h1>
-    {% if accounts %}
-        <table class="table table-bordered">
-            <tr>
-                <th>Account Name</th>
-                <th>Account Number</th>
-            </tr>
-            <tr>
-                {% for account in accounts %}
-                    <td>{{ account.account_name }}</td>
-                    <td>{{ account.account_number }}</td>
-                {% endfor %}
-            </tr>
-        </table>
-    {% else %}
-        No accounts found.
-    {% endif %}
-
-    <!--suppress HtmlUnknownTarget -->
-    <a href="/accounts/create/">Create new account</a>
+    <div class="col-md-offset-3 col-md-6">
+        <div class="page-header">
+            <h1>My Bank Accounts</h1>
+        </div>
+        <div class="col-sm-12 table-responsive">
+            {% if accounts %}
+                <table class="table">
+                    <tr>
+                        <th>Account Name</th>
+                        <th>Account Number</th>
+                    </tr>
+                    <tr>
+                        {% for account in accounts %}
+                            <td>{{ account.account_name }}</td>
+                            <td>{{ account.account_number }}</td>
+                        {% endfor %}
+                    </tr>
+                </table>
+            {% else %}
+                <div class="alert alert-warning">
+                    You don't have any bank account yet
+                </div>
+            {% endif %}
+        </div>
+        <div class="col-sm-12">
+            <!--suppress HtmlUnknownTarget -->
+            <a class="btn btn-primary" href="/accounts/create/">Create new account</a>
+        </div>
+    </div>
 {% endblock %}
