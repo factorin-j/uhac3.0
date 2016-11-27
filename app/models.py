@@ -40,6 +40,6 @@ def publish_criminal_record_stream(sender, instance, created, **kwargs):
             instance.offense,
             instance.case_number,
             instance.case_status,
-            instance.committed_at,
+            str(instance.committed_at),
         ])
         api.publish(stream_id, 'records', data.encode('utf-8').hex())
