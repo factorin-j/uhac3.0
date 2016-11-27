@@ -43,7 +43,6 @@ class CriminalRecordView(LoginRequiredView, DetailView):
         if not request.user.is_staff:
             return render(request, 'records/profile.html')
 
-        print(dir(request.user))
         records = CriminalRecord.objects.filter(user=request.user)
         return render(request, 'records/list.html', {
             'records': records
