@@ -50,7 +50,7 @@ class CriminalRecordView(LoginRequiredView, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(CriminalRecordView, self).get_context_data(**kwargs)
-        context['records'] = self.request.user.criminalrecords
+        context['records'] = CriminalRecord.objects.all()
         return context
 
 
