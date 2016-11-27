@@ -36,4 +36,4 @@ def publish_account_stream(sender, instance, created, **kwargs):
     if created:
         stream_id = instance.user.userstream.stream_id
         data = instance.account_name + '|' + instance.account_number
-        api.publish('account', stream_id, data.encode('utf-8').hex())
+        api.publish(stream_id, 'account', data.encode('utf-8').hex())
